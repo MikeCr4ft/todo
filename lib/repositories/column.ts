@@ -7,6 +7,14 @@ export async function getColumnsByBoard(boardId: string) {
   })
 }
 
+export async function getColumnsWithTasks(boardId: string) {
+  return db.column.findMany({
+    where: { boardId },
+    orderBy: { position: "asc" },
+    include: { tasks: { orderBy: { position: "asc" } } },
+  })
+}
+
 export async function createColumn(
   userId: string,
   boardId: string,
