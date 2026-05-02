@@ -16,7 +16,7 @@ export default function EditTaskModal({ task }: { task: Task }) {
       trigger={(open) => (
         <button
           onClick={open}
-          className="rounded p-1 text-xs text-muted hover:text-primary"
+          className="cursor-pointer rounded p-1 text-xs text-muted transition-colors hover:text-primary"
         >
           Edit
         </button>

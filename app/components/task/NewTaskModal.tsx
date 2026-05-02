@@ -11,7 +11,7 @@ export default function NewTaskModal({ columnId, boardId }: Props) {
       trigger={(open) => (
         <button
           onClick={open}
-          className="flex w-full items-center gap-1 rounded px-2 py-1 text-xs text-muted hover:text-primary"
+          className="flex w-full cursor-pointer items-center gap-1 rounded px-2 py-1 text-xs text-muted transition-colors hover:text-primary"
         >
           + Add task
         </button>

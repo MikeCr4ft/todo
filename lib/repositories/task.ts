@@ -66,3 +66,30 @@ export async function reorderTask(
     data: { position: newPosition },
   })
 }
+
+export async function moveTask(
+  userId: string,
+  taskId: string,
+  newColumnId: string
+) {
+  const task = await db.task.findFirst({
+    where: { id: taskId, column: { board: { userId } } },
+  })
+  if (!task) throw new Error("Task not found or access denied")
+
+  const newColumn = await db.column.findFirst({
+    where: { id: newColumnId, boardId: task.boardId },
+  })
+  if (!newColumn) throw new Error("Column not found")
+
+  const last = await db.task.findFirst({
+    where: { columnId: newColumnId },
+    orderBy: { position: "desc" },
+  })
+  const position = last ? last.position + 1.0 : 1.0
+
+  return db.task.update({
+    where: { id: taskId },
+    data: { columnId: newColumnId, position },
+  })
+}

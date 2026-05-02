@@ -9,7 +9,7 @@ export default function NewBoardModal() {
       trigger={(open) => (
         <button
           onClick={open}
-          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+          className="rounded-3xl hover:rounded-xl transition-all hover:cursor-pointer bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
         >
           New board
         </button>
