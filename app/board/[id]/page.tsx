@@ -20,10 +20,10 @@ export default async function BoardPage({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="mb-8 text-2xl font-bold text-gray-900">{board.title}</h1>
+      <h1 className="mb-8 text-2xl font-bold text-primary">{board.title}</h1>
 
       {/* Kanban columns go here — implemented in issue #4 */}
-      <p className="text-sm text-gray-400">Board view coming in issue #4.</p>
+      <p className="text-sm text-muted">Board view coming in issue #4.</p>
     </main>
   )
 }

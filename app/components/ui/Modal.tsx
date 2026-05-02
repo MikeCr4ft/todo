@@ -12,12 +12,12 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <div className="flex items-center justify-between border-b pb-3">
-          <h3 className="text-lg font-semibold">{title || 'Modal'}</h3>
+      <div className="w-full max-w-md rounded-lg bg-surface border border-edge p-6 shadow-xl">
+        <div className="flex items-center justify-between border-b border-edge pb-3">
+          <h3 className="text-lg font-semibold text-primary">{title || 'Modal'}</h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-black"
+            className="text-muted hover:text-primary"
           >
             ✕
           </button>
