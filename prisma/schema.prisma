@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -21,6 +21,17 @@ model Board {
   createdAt DateTime @default(now())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  columns   Column[]
+  tasks     Task[]
+}
+
+model Column {
+  id        String   @id @default(cuid())
+  title     String
+  position  Float
+  createdAt DateTime @default(now())
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   tasks     Task[]
 }
 
@@ -28,15 +39,10 @@ model Task {
   id          String   @id @default(cuid())
   title       String
   description String?
-  status      Status   @default(TODO)
   position    Float
   createdAt   DateTime @default(now())
   boardId     String
   board       Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
-}
-
-enum Status {
-  TODO
-  IN_PROGRESS
-  DONE
+  columnId    String
+  column      Column   @relation(fields: [columnId], references: [id], onDelete: Cascade)
 }

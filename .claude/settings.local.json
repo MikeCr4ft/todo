@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "mcp__github__issue_write"
+      "mcp__github__issue_write",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\miked\\\\OneDrive\\\\Desktop\\\\projects\\\\todo\" -Recurse -File | where { $_.Extension -in @\\('.ts', '.tsx'\\) -and $_.FullName -notmatch '\\(node_modules|\\\\.next\\)' } | Select-Object FullName)"
     ]
   }
 }
