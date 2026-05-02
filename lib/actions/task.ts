@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { getCurrentUserId } from "@/lib/auth"
-import { createTask, updateTask, deleteTask } from "@/lib/repositories/task"
+import { createTask, updateTask, deleteTask, moveTask } from "@/lib/repositories/task"
 
 export async function createTaskAction(formData: FormData) {
   const userId = await getCurrentUserId()
@@ -39,5 +39,15 @@ export async function deleteTaskAction(formData: FormData) {
   const boardId = formData.get("boardId") as string
 
   await deleteTask(userId, taskId)
+  revalidatePath(`/board/${boardId}`)
+}
+
+export async function moveTaskAction(
+  taskId: string,
+  newColumnId: string,
+  boardId: string
+) {
+  const userId = await getCurrentUserId()
+  await moveTask(userId, taskId, newColumnId)
   revalidatePath(`/board/${boardId}`)
 }

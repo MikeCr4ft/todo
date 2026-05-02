@@ -1,3 +1,6 @@
+"use client"
+
+import { useDroppable } from "@dnd-kit/core"
 import TaskCard from "@/app/components/task/TaskCard"
 import NewTaskModal from "@/app/components/task/NewTaskModal"
 
@@ -30,8 +33,15 @@ export default function KanbanColumn({
   column: Column
   boardId: string
 }) {
+  const { setNodeRef, isOver } = useDroppable({ id: column.id })
+
   return (
-    <div className="flex flex-col rounded-lg border border-edge bg-elevated">
+    <div
+      ref={setNodeRef}
+      className={`flex flex-col rounded-lg border bg-elevated transition-colors ${
+        isOver ? "border-accent" : "border-edge"
+      }`}
+    >
       <div className="border-b border-edge px-3 py-2">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-secondary">
           {column.title}
