@@ -1,5 +1,6 @@
 // Server Component — fetches the board and guards access before rendering.
 
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getBoard } from "@/lib/repositories/board"
 import { getCurrentUserId } from "@/lib/auth"
@@ -20,7 +21,13 @@ export default async function BoardPage({ params }: Props) {
   if (!board) notFound()
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12">
+    <main className="px-8 py-12">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-primary"
+      >
+        ← All boards
+      </Link>
       <h1 className="mb-8 text-2xl font-bold text-primary">{board.title}</h1>
 
       <KanbanBoard boardId={id} />

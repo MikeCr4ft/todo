@@ -47,7 +47,7 @@ export default function KanbanColumn({
           {column.title}
         </h2>
       </div>
-      <div className="flex min-h-48 flex-col gap-2 p-2">
+      <div className="flex min-h-80 flex-col gap-2 p-3">
         {column.tasks.length === 0 ? (
           <p className="m-auto text-xs text-muted">
             {EMPTY_MESSAGES[column.title] ?? "No tasks yet"}
