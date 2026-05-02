@@ -17,6 +17,12 @@ type Column = {
   tasks: Task[]
 }
 
+const EMPTY_MESSAGES: Record<string, string> = {
+  "To Do": "No tasks to do yet",
+  "In Progress": "Nothing in progress",
+  "Done": "All caught up",
+}
+
 export default function KanbanColumn({
   column,
   boardId,
@@ -32,9 +38,13 @@ export default function KanbanColumn({
         </h2>
       </div>
       <div className="flex min-h-48 flex-col gap-2 p-2">
-        {column.tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        {column.tasks.length === 0 ? (
+          <p className="m-auto text-xs text-muted">
+            {EMPTY_MESSAGES[column.title] ?? "No tasks yet"}
+          </p>
+        ) : (
+          column.tasks.map((task) => <TaskCard key={task.id} task={task} />)
+        )}
       </div>
       <div className="border-t border-edge p-2">
         <NewTaskModal columnId={column.id} boardId={boardId} />
