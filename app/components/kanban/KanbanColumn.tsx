@@ -1,10 +1,29 @@
+import TaskCard from "@/app/components/task/TaskCard"
+import NewTaskModal from "@/app/components/task/NewTaskModal"
+
+type Task = {
+  id: string
+  title: string
+  description: string | null
+  position: number
+  boardId: string
+  columnId: string
+}
+
 type Column = {
   id: string
   title: string
   position: number
+  tasks: Task[]
 }
 
-export default function KanbanColumn({ column }: { column: Column }) {
+export default function KanbanColumn({
+  column,
+  boardId,
+}: {
+  column: Column
+  boardId: string
+}) {
   return (
     <div className="flex flex-col rounded-lg border border-edge bg-elevated">
       <div className="border-b border-edge px-3 py-2">
@@ -13,7 +32,12 @@ export default function KanbanColumn({ column }: { column: Column }) {
         </h2>
       </div>
       <div className="flex min-h-48 flex-col gap-2 p-2">
-        {/* task cards rendered here in #5 */}
+        {column.tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </div>
+      <div className="border-t border-edge p-2">
+        <NewTaskModal columnId={column.id} boardId={boardId} />
       </div>
     </div>
   )
