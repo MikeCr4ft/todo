@@ -15,6 +15,11 @@ Work from whatever is already in the conversation context. If the user passes an
 
 Resolve the GitHub repo from the git remote (`git remote get-url origin`) — extract `owner` and `repo` from the URL.
 
+**Resolve the PRD issue number.** Check (in order):
+1. Did the user pass a PRD issue number or URL as an argument?
+2. Is there an open GitHub issue labelled `prd` or whose title starts with `PRD:`? Use `mcp__github__list_issues` (state: `open`) and scan for it.
+3. If no PRD issue is found, note this and skip the PRD reference in issue bodies — do not block progress.
+
 ### 2. Explore the codebase (optional)
 
 If you have not already explored the codebase, do so to understand the current state of the code. Issue titles and descriptions should use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.
@@ -80,6 +85,10 @@ A concise description of this vertical slice. Describe the end-to-end behavior, 
 - #N — Issue title (if any blockers)
 
 Or "None — can start immediately" if no blockers.
+
+## PRD
+
+- #N — PRD title (link to the PRD issue; omit this section if no PRD issue was found)
 
 ## Type
 

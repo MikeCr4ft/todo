@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(ls \"c:\\\\Users\\\\miked\\\\OneDrive\\\\Desktop\\\\projects\\\\todo\" | where { $_.PSIsContainer } | Select-Object Name)",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\miked\\\\OneDrive\\\\Desktop\\\\projects\\\\todo\" -Directory -Force | ForEach-Object { Write-Output $_.Name })",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js|json|md\\)$\")",
+      "mcp__github__list_issues"
+    ]
+  }
+}
