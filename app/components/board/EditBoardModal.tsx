@@ -11,7 +11,7 @@ export default function EditBoardModal({ board }: { board: Board }) {
       trigger={(open) => (
         <button
           onClick={open}
-          className="rounded px-3 py-1 text-sm text-secondary hover:text-primary"
+          className="cursor-pointer rounded px-3 py-1 text-sm text-secondary transition-colors hover:text-primary"
         >
           Edit
         </button>

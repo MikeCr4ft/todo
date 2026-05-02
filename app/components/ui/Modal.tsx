@@ -17,7 +17,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
           <h3 className="text-lg font-semibold text-primary">{title || 'Modal'}</h3>
           <button
             onClick={onClose}
-            className="text-muted hover:text-primary"
+            className="cursor-pointer text-muted transition-colors hover:text-primary"
           >
             ✕
           </button>

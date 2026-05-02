@@ -47,7 +47,7 @@ export default function TaskCard({ task }: { task: Task }) {
                 <input type="hidden" name="boardId" value={task.boardId} />
                 <button
                   type="submit"
-                  className="rounded p-1 text-xs text-muted hover:text-danger"
+                  className="cursor-pointer rounded p-1 text-xs text-muted transition-colors hover:text-danger"
                 >
                   ✕
                 </button>
