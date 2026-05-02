@@ -52,6 +52,11 @@ export type User = Prisma.UserModel
  */
 export type Board = Prisma.BoardModel
 /**
+ * Model Column
+ * 
+ */
+export type Column = Prisma.ColumnModel
+/**
  * Model Task
  * 
  */

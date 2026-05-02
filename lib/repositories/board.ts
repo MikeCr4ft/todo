@@ -16,10 +16,18 @@ export async function getBoard(userId: string, boardId: string) {
   })
 }
 
-// Insert a new board scoped to the given user.
+// Insert a new board and seed three default columns in a single transaction.
 export async function createBoard(userId: string, title: string) {
-  return db.board.create({
-    data: { title, userId },
+  return db.$transaction(async (tx) => {
+    const board = await tx.board.create({ data: { title, userId } })
+    await tx.column.createMany({
+      data: [
+        { title: "To Do", position: 1.0, boardId: board.id },
+        { title: "In Progress", position: 2.0, boardId: board.id },
+        { title: "Done", position: 3.0, boardId: board.id },
+      ],
+    })
+    return board
   })
 }
 

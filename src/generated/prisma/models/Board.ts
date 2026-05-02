@@ -175,6 +175,7 @@ export type BoardWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
   userId?: Prisma.StringFilter<"Board"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  columns?: Prisma.ColumnListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
 }
 
@@ -184,6 +185,7 @@ export type BoardOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  columns?: Prisma.ColumnOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
 }
 
@@ -196,6 +198,7 @@ export type BoardWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
   userId?: Prisma.StringFilter<"Board"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  columns?: Prisma.ColumnListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
 }, "id">
 
@@ -224,6 +227,7 @@ export type BoardCreateInput = {
   title: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutBoardsInput
+  columns?: Prisma.ColumnCreateNestedManyWithoutBoardInput
   tasks?: Prisma.TaskCreateNestedManyWithoutBoardInput
 }
 
@@ -232,6 +236,7 @@ export type BoardUncheckedCreateInput = {
   title: string
   createdAt?: Date | string
   userId: string
+  columns?: Prisma.ColumnUncheckedCreateNestedManyWithoutBoardInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutBoardInput
 }
 
@@ -240,6 +245,7 @@ export type BoardUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutBoardsNestedInput
+  columns?: Prisma.ColumnUpdateManyWithoutBoardNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutBoardNestedInput
 }
 
@@ -248,6 +254,7 @@ export type BoardUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  columns?: Prisma.ColumnUncheckedUpdateManyWithoutBoardNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutBoardNestedInput
 }
 
@@ -349,6 +356,20 @@ export type BoardUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.BoardScalarWhereInput | Prisma.BoardScalarWhereInput[]
 }
 
+export type BoardCreateNestedOneWithoutColumnsInput = {
+  create?: Prisma.XOR<Prisma.BoardCreateWithoutColumnsInput, Prisma.BoardUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.BoardCreateOrConnectWithoutColumnsInput
+  connect?: Prisma.BoardWhereUniqueInput
+}
+
+export type BoardUpdateOneRequiredWithoutColumnsNestedInput = {
+  create?: Prisma.XOR<Prisma.BoardCreateWithoutColumnsInput, Prisma.BoardUncheckedCreateWithoutColumnsInput>
+  connectOrCreate?: Prisma.BoardCreateOrConnectWithoutColumnsInput
+  upsert?: Prisma.BoardUpsertWithoutColumnsInput
+  connect?: Prisma.BoardWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BoardUpdateToOneWithWhereWithoutColumnsInput, Prisma.BoardUpdateWithoutColumnsInput>, Prisma.BoardUncheckedUpdateWithoutColumnsInput>
+}
+
 export type BoardCreateNestedOneWithoutTasksInput = {
   create?: Prisma.XOR<Prisma.BoardCreateWithoutTasksInput, Prisma.BoardUncheckedCreateWithoutTasksInput>
   connectOrCreate?: Prisma.BoardCreateOrConnectWithoutTasksInput
@@ -367,6 +388,7 @@ export type BoardCreateWithoutUserInput = {
   id?: string
   title: string
   createdAt?: Date | string
+  columns?: Prisma.ColumnCreateNestedManyWithoutBoardInput
   tasks?: Prisma.TaskCreateNestedManyWithoutBoardInput
 }
 
@@ -374,6 +396,7 @@ export type BoardUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
   createdAt?: Date | string
+  columns?: Prisma.ColumnUncheckedCreateNestedManyWithoutBoardInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutBoardInput
 }
 
@@ -413,11 +436,60 @@ export type BoardScalarWhereInput = {
   userId?: Prisma.StringFilter<"Board"> | string
 }
 
+export type BoardCreateWithoutColumnsInput = {
+  id?: string
+  title: string
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutBoardsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutBoardInput
+}
+
+export type BoardUncheckedCreateWithoutColumnsInput = {
+  id?: string
+  title: string
+  createdAt?: Date | string
+  userId: string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutBoardInput
+}
+
+export type BoardCreateOrConnectWithoutColumnsInput = {
+  where: Prisma.BoardWhereUniqueInput
+  create: Prisma.XOR<Prisma.BoardCreateWithoutColumnsInput, Prisma.BoardUncheckedCreateWithoutColumnsInput>
+}
+
+export type BoardUpsertWithoutColumnsInput = {
+  update: Prisma.XOR<Prisma.BoardUpdateWithoutColumnsInput, Prisma.BoardUncheckedUpdateWithoutColumnsInput>
+  create: Prisma.XOR<Prisma.BoardCreateWithoutColumnsInput, Prisma.BoardUncheckedCreateWithoutColumnsInput>
+  where?: Prisma.BoardWhereInput
+}
+
+export type BoardUpdateToOneWithWhereWithoutColumnsInput = {
+  where?: Prisma.BoardWhereInput
+  data: Prisma.XOR<Prisma.BoardUpdateWithoutColumnsInput, Prisma.BoardUncheckedUpdateWithoutColumnsInput>
+}
+
+export type BoardUpdateWithoutColumnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutBoardsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutBoardNestedInput
+}
+
+export type BoardUncheckedUpdateWithoutColumnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutBoardNestedInput
+}
+
 export type BoardCreateWithoutTasksInput = {
   id?: string
   title: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutBoardsInput
+  columns?: Prisma.ColumnCreateNestedManyWithoutBoardInput
 }
 
 export type BoardUncheckedCreateWithoutTasksInput = {
@@ -425,6 +497,7 @@ export type BoardUncheckedCreateWithoutTasksInput = {
   title: string
   createdAt?: Date | string
   userId: string
+  columns?: Prisma.ColumnUncheckedCreateNestedManyWithoutBoardInput
 }
 
 export type BoardCreateOrConnectWithoutTasksInput = {
@@ -448,6 +521,7 @@ export type BoardUpdateWithoutTasksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutBoardsNestedInput
+  columns?: Prisma.ColumnUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardUncheckedUpdateWithoutTasksInput = {
@@ -455,6 +529,7 @@ export type BoardUncheckedUpdateWithoutTasksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  columns?: Prisma.ColumnUncheckedUpdateManyWithoutBoardNestedInput
 }
 
 export type BoardCreateManyUserInput = {
@@ -467,6 +542,7 @@ export type BoardUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  columns?: Prisma.ColumnUpdateManyWithoutBoardNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutBoardNestedInput
 }
 
@@ -474,6 +550,7 @@ export type BoardUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  columns?: Prisma.ColumnUncheckedUpdateManyWithoutBoardNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutBoardNestedInput
 }
 
@@ -489,10 +566,12 @@ export type BoardUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type BoardCountOutputType = {
+  columns: number
   tasks: number
 }
 
 export type BoardCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  columns?: boolean | BoardCountOutputTypeCountColumnsArgs
   tasks?: boolean | BoardCountOutputTypeCountTasksArgs
 }
 
@@ -509,6 +588,13 @@ export type BoardCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * BoardCountOutputType without action
  */
+export type BoardCountOutputTypeCountColumnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ColumnWhereInput
+}
+
+/**
+ * BoardCountOutputType without action
+ */
 export type BoardCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TaskWhereInput
 }
@@ -520,6 +606,7 @@ export type BoardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdAt?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  columns?: boolean | Prisma.Board$columnsArgs<ExtArgs>
   tasks?: boolean | Prisma.Board$tasksArgs<ExtArgs>
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["board"]>
@@ -550,6 +637,7 @@ export type BoardSelectScalar = {
 export type BoardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "createdAt" | "userId", ExtArgs["result"]["board"]>
 export type BoardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  columns?: boolean | Prisma.Board$columnsArgs<ExtArgs>
   tasks?: boolean | Prisma.Board$tasksArgs<ExtArgs>
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -564,6 +652,7 @@ export type $BoardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Board"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    columns: Prisma.$ColumnPayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -966,6 +1055,7 @@ readonly fields: BoardFieldRefs;
 export interface Prisma__BoardClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  columns<T extends Prisma.Board$columnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ColumnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.Board$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Board$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1398,6 +1488,30 @@ export type BoardDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Boards to delete.
    */
   limit?: number
+}
+
+/**
+ * Board.columns
+ */
+export type Board$columnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Column
+   */
+  select?: Prisma.ColumnSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Column
+   */
+  omit?: Prisma.ColumnOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ColumnInclude<ExtArgs> | null
+  where?: Prisma.ColumnWhereInput
+  orderBy?: Prisma.ColumnOrderByWithRelationInput | Prisma.ColumnOrderByWithRelationInput[]
+  cursor?: Prisma.ColumnWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ColumnScalarFieldEnum | Prisma.ColumnScalarFieldEnum[]
 }
 
 /**

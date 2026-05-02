@@ -3,6 +3,7 @@
 import { notFound } from "next/navigation"
 import { getBoard } from "@/lib/repositories/board"
 import { getCurrentUserId } from "@/lib/auth"
+import KanbanBoard from "@/app/components/kanban/KanbanBoard"
 
 type Props = {
   // Next.js passes route segment params as a promise in the App Router.
@@ -22,8 +23,7 @@ export default async function BoardPage({ params }: Props) {
     <main className="mx-auto max-w-5xl px-4 py-12">
       <h1 className="mb-8 text-2xl font-bold text-primary">{board.title}</h1>
 
-      {/* Kanban columns go here — implemented in issue #4 */}
-      <p className="text-sm text-muted">Board view coming in issue #4.</p>
+      <KanbanBoard boardId={id} />
     </main>
   )
 }
