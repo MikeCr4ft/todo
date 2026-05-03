@@ -1,18 +1,16 @@
 "use client"
 
 import { ModalForm } from "@/app/components/ui/ModalForm"
+import { Button } from "@/app/components/ui/Button"
 import { createBoardAction } from "@/lib/actions/board"
 
 export default function NewBoardModal() {
   return (
     <ModalForm
       trigger={(open) => (
-        <button
-          onClick={open}
-          className="rounded-3xl hover:rounded-xl transition-all hover:cursor-pointer bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-        >
+        <Button onClick={open} variant="primary">
           New board
-        </button>
+        </Button>
       )}
       title="New board"
       action={createBoardAction}

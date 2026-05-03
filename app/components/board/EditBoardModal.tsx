@@ -1,20 +1,17 @@
 "use client"
 
 import { ModalForm } from "@/app/components/ui/ModalForm"
+import { Button } from "@/app/components/ui/Button"
 import { updateBoardAction } from "@/lib/actions/board"
-
-type Board = { id: string; title: string }
+import type { Board } from "@/lib/types"
 
 export default function EditBoardModal({ board }: { board: Board }) {
   return (
     <ModalForm
       trigger={(open) => (
-        <button
-          onClick={open}
-          className="cursor-pointer rounded px-3 py-1 text-sm text-secondary transition-colors hover:text-primary"
-        >
+        <Button onClick={open} variant="ghost" size="sm">
           Edit
-        </button>
+        </Button>
       )}
       title="Edit board"
       action={updateBoardAction}

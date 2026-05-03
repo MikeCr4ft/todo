@@ -3,11 +3,8 @@
 import Link from "next/link"
 import { deleteBoardAction } from "@/lib/actions/board"
 import EditBoardModal from "@/app/components/board/EditBoardModal"
-
-type Board = {
-  id: string
-  title: string
-}
+import { Button } from "@/app/components/ui/Button"
+import type { Board } from "@/lib/types"
 
 export default function BoardCard({ board }: { board: Board }) {
   return (
@@ -24,12 +21,9 @@ export default function BoardCard({ board }: { board: Board }) {
         <EditBoardModal board={board} />
         <form action={deleteBoardAction}>
           <input type="hidden" name="boardId" value={board.id} />
-          <button
-            type="submit"
-            className="cursor-pointer rounded px-3 py-1 text-sm text-danger transition-colors hover:text-danger-hover"
-          >
+          <Button type="submit" variant="danger" size="sm">
             Delete
-          </button>
+          </Button>
         </form>
       </div>
     </div>

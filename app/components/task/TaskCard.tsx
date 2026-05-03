@@ -3,14 +3,9 @@
 import { useDraggable } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
 import EditTaskModal from "@/app/components/task/EditTaskModal"
+import { Button } from "@/app/components/ui/Button"
 import { deleteTaskAction } from "@/lib/actions/task"
-
-type Task = {
-  id: string
-  title: string
-  description: string | null
-  boardId: string
-}
+import type { Task } from "@/lib/types"
 
 export default function TaskCard({ task }: { task: Task }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -45,12 +40,9 @@ export default function TaskCard({ task }: { task: Task }) {
               <form action={deleteTaskAction}>
                 <input type="hidden" name="taskId" value={task.id} />
                 <input type="hidden" name="boardId" value={task.boardId} />
-                <button
-                  type="submit"
-                  className="cursor-pointer rounded p-1 text-xs text-muted transition-colors hover:text-danger"
-                >
+                <Button type="submit" variant="danger" size="icon">
                   ✕
-                </button>
+                </Button>
               </form>
             </div>
           </div>

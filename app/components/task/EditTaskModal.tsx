@@ -1,25 +1,17 @@
 "use client"
 
 import { ModalForm } from "@/app/components/ui/ModalForm"
+import { Button } from "@/app/components/ui/Button"
 import { updateTaskAction } from "@/lib/actions/task"
-
-type Task = {
-  id: string
-  title: string
-  description: string | null
-  boardId: string
-}
+import type { Task } from "@/lib/types"
 
 export default function EditTaskModal({ task }: { task: Task }) {
   return (
     <ModalForm
       trigger={(open) => (
-        <button
-          onClick={open}
-          className="cursor-pointer rounded p-1 text-xs text-muted transition-colors hover:text-primary"
-        >
+        <Button onClick={open} variant="ghost" size="icon">
           Edit
-        </button>
+        </Button>
       )}
       title="Edit task"
       action={updateTaskAction}

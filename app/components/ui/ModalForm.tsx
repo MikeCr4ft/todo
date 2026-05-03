@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { Modal } from "@/app/components/ui/Modal"
+import { Button } from "@/app/components/ui/Button"
 import { useModal } from "@/lib/hooks/useModal"
 
 type ModalFormProps = {
@@ -57,19 +58,12 @@ export function ModalForm({
             </div>
           )}
           <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="hover:cursor-pointer px-4 py-2 text-sm text-secondary hover:text-primary"
-            >
+            <Button type="button" variant="ghost" size="md" onClick={handleClose}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-2xl hover:rounded-xl transition-all hover:cursor-pointer bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-            >
+            </Button>
+            <Button type="submit" variant="primary">
               {submitLabel}
-            </button>
+            </Button>
           </div>
         </form>
       </Modal>
