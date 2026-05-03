@@ -1,4 +1,5 @@
 import { db } from "@/lib/db"
+import { calcAppendPosition } from "@/lib/position-calculator"
 
 export async function getTasksByColumn(columnId: string) {
   return db.task.findMany({
@@ -22,7 +23,7 @@ export async function createTask(
     where: { columnId },
     orderBy: { position: "desc" },
   })
-  const position = last ? last.position + 1.0 : 1.0
+  const position = calcAppendPosition(last?.position ?? null)
 
   return db.task.create({
     data: { title, description, position, columnId, boardId: column.boardId },
@@ -34,21 +35,18 @@ export async function updateTask(
   taskId: string,
   data: { title?: string; description?: string | null }
 ) {
-  const task = await db.task.findFirst({
+  const { count } = await db.task.updateMany({
     where: { id: taskId, column: { board: { userId } } },
+    data,
   })
-  if (!task) throw new Error("Task not found or access denied")
-
-  return db.task.update({ where: { id: taskId }, data })
+  if (count === 0) throw new Error("Task not found or access denied")
 }
 
 export async function deleteTask(userId: string, taskId: string) {
-  const task = await db.task.findFirst({
+  const { count } = await db.task.deleteMany({
     where: { id: taskId, column: { board: { userId } } },
   })
-  if (!task) throw new Error("Task not found or access denied")
-
-  return db.task.delete({ where: { id: taskId } })
+  if (count === 0) throw new Error("Task not found or access denied")
 }
 
 export async function reorderTask(
@@ -56,15 +54,11 @@ export async function reorderTask(
   taskId: string,
   newPosition: number
 ) {
-  const task = await db.task.findFirst({
+  const { count } = await db.task.updateMany({
     where: { id: taskId, column: { board: { userId } } },
-  })
-  if (!task) throw new Error("Task not found or access denied")
-
-  return db.task.update({
-    where: { id: taskId },
     data: { position: newPosition },
   })
+  if (count === 0) throw new Error("Task not found or access denied")
 }
 
 export async function moveTask(
@@ -86,7 +80,7 @@ export async function moveTask(
     where: { columnId: newColumnId },
     orderBy: { position: "desc" },
   })
-  const position = last ? last.position + 1.0 : 1.0
+  const position = calcAppendPosition(last?.position ?? null)
 
   return db.task.update({
     where: { id: taskId },

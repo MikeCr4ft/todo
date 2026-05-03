@@ -113,9 +113,10 @@ describe("createBoard", () => {
 describe("updateBoard", () => {
   it("renames a board the user owns", async () => {
     const board = await createBoard(USER_A_ID, "Old title")
-    const updated = await updateBoard(USER_A_ID, board.id, "New title")
+    await updateBoard(USER_A_ID, board.id, "New title")
 
-    expect(updated.title).toBe("New title")
+    const fetched = await db.board.findUnique({ where: { id: board.id } })
+    expect(fetched!.title).toBe("New title")
   })
 
   it("throws when a user tries to rename another user's board", async () => {

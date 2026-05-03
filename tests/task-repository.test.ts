@@ -73,18 +73,19 @@ describe("task repository", () => {
 
   it("updates title and description", async () => {
     const task = await createTask(userId, columnId, "Before")
-    const updated = await updateTask(userId, task.id, {
-      title: "After",
-      description: "New desc",
-    })
-    expect(updated.title).toBe("After")
-    expect(updated.description).toBe("New desc")
+    await updateTask(userId, task.id, { title: "After", description: "New desc" })
+
+    const fetched = await db.task.findUnique({ where: { id: task.id } })
+    expect(fetched!.title).toBe("After")
+    expect(fetched!.description).toBe("New desc")
   })
 
   it("clears description when set to null", async () => {
     const task = await createTask(userId, columnId, "Has desc", "Will clear")
-    const updated = await updateTask(userId, task.id, { description: null })
-    expect(updated.description).toBeNull()
+    await updateTask(userId, task.id, { description: null })
+
+    const fetched = await db.task.findUnique({ where: { id: task.id } })
+    expect(fetched!.description).toBeNull()
   })
 
   it("rejects updateTask when the user does not own the task", async () => {
@@ -110,8 +111,10 @@ describe("task repository", () => {
 
   it("reorders a task to a new float position", async () => {
     const task = await createTask(userId, columnId, "Reorder me")
-    const reordered = await reorderTask(userId, task.id, 1.5)
-    expect(reordered.position).toBe(1.5)
+    await reorderTask(userId, task.id, 1.5)
+
+    const fetched = await db.task.findUnique({ where: { id: task.id } })
+    expect(fetched!.position).toBe(1.5)
   })
 
   it("rejects reorderTask when the user does not own the task", async () => {

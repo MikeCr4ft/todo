@@ -32,12 +32,11 @@ export async function updateColumn(
   columnId: string,
   title: string
 ) {
-  const column = await db.column.findFirst({
+  const { count } = await db.column.updateMany({
     where: { id: columnId, board: { userId } },
+    data: { title },
   })
-  if (!column) throw new Error("Column not found or access denied")
-
-  return db.column.update({ where: { id: columnId }, data: { title } })
+  if (count === 0) throw new Error("Column not found or access denied")
 }
 
 export async function deleteColumn(userId: string, columnId: string) {
@@ -57,13 +56,9 @@ export async function reorderColumn(
   columnId: string,
   newPosition: number
 ) {
-  const column = await db.column.findFirst({
+  const { count } = await db.column.updateMany({
     where: { id: columnId, board: { userId } },
-  })
-  if (!column) throw new Error("Column not found or access denied")
-
-  return db.column.update({
-    where: { id: columnId },
     data: { position: newPosition },
   })
+  if (count === 0) throw new Error("Column not found or access denied")
 }

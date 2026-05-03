@@ -9,22 +9,7 @@ import {
 } from "@dnd-kit/core"
 import KanbanColumn from "@/app/components/kanban/KanbanColumn"
 import { moveTaskAction } from "@/lib/actions/task"
-
-type Task = {
-  id: string
-  title: string
-  description: string | null
-  position: number
-  boardId: string
-  columnId: string
-}
-
-type Column = {
-  id: string
-  title: string
-  position: number
-  tasks: Task[]
-}
+import type { Column } from "@/lib/types"
 
 export default function KanbanBoardClient({
   columns,

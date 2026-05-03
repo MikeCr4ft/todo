@@ -31,23 +31,21 @@ export async function createBoard(userId: string, title: string) {
   })
 }
 
-// Rename a board. The findFirst check enforces ownership — if the row doesn't
-// exist for this userId the mutation is blocked before it reaches the DB.
 export async function updateBoard(
   userId: string,
   boardId: string,
   title: string
 ) {
-  const board = await db.board.findFirst({ where: { id: boardId, userId } })
-  if (!board) throw new Error("Board not found or access denied")
-
-  return db.board.update({ where: { id: boardId }, data: { title } })
+  const { count } = await db.board.updateMany({
+    where: { id: boardId, userId },
+    data: { title },
+  })
+  if (count === 0) throw new Error("Board not found or access denied")
 }
 
-// Delete a board (and all its tasks via cascade). Same ownership guard as updateBoard.
 export async function deleteBoard(userId: string, boardId: string) {
-  const board = await db.board.findFirst({ where: { id: boardId, userId } })
-  if (!board) throw new Error("Board not found or access denied")
-
-  return db.board.delete({ where: { id: boardId } })
+  const { count } = await db.board.deleteMany({
+    where: { id: boardId, userId },
+  })
+  if (count === 0) throw new Error("Board not found or access denied")
 }

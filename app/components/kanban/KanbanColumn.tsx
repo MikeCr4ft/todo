@@ -3,22 +3,7 @@
 import { useDroppable } from "@dnd-kit/core"
 import TaskCard from "@/app/components/task/TaskCard"
 import NewTaskModal from "@/app/components/task/NewTaskModal"
-
-type Task = {
-  id: string
-  title: string
-  description: string | null
-  position: number
-  boardId: string
-  columnId: string
-}
-
-type Column = {
-  id: string
-  title: string
-  position: number
-  tasks: Task[]
-}
+import type { Column } from "@/lib/types"
 
 const EMPTY_MESSAGES: Record<string, string> = {
   "To Do": "No tasks to do yet",
