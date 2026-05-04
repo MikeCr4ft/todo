@@ -29,16 +29,18 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-dvh antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex h-dvh flex-col overflow-hidden">
         {session && (
-          <header className="flex items-center justify-between border-b border-edge bg-surface px-6 py-2.5">
+          <header className="h-header shrink-0 flex items-center justify-between border-b border-edge bg-surface px-6">
             <span className="text-sm font-semibold text-primary">Kanban</span>
             <UserMenu name={session.user?.name} image={session.user?.image} />
           </header>
         )}
-        {children}
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -14,7 +14,8 @@
       "Bash(git add *)",
       "Bash(git rm *)",
       "Bash(npm run *)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "WebSearch"
     ],
     "additionalDirectories": [
       "c:\\Users\\miked\\OneDrive\\Desktop\\projects\\todo\\app\\api\\auth"

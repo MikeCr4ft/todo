@@ -11,7 +11,7 @@ export default async function HomePage() {
   const boards = await getBoardsByUser(userId)
 
   return (
-    <main className="min-h-screen px-6 py-12">
+    <main className="px-6 py-12">
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 flex items-center justify-between">
           <div>

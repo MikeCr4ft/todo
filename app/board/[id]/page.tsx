@@ -21,7 +21,7 @@ export default async function BoardPage({ params }: Props) {
   if (!board) notFound()
 
   return (
-    <main className="flex min-h-screen flex-col px-6 py-8">
+    <main className="flex h-full flex-col px-6 py-8">
       <div className="mb-6 flex items-center gap-3">
         <Link
           href="/"

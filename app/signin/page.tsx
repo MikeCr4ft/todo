@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react"
 
 export default function SignInPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
+    <main className="flex flex-1 items-center justify-center">
       <div className="flex flex-col items-center gap-6 rounded-xl border border-edge bg-elevated px-10 py-12 shadow-lg">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-primary">Kanban</h1>
