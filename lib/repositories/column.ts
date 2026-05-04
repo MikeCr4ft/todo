@@ -11,7 +11,12 @@ export async function getColumnsWithTasks(boardId: string) {
   return db.column.findMany({
     where: { boardId },
     orderBy: { position: "asc" },
-    include: { tasks: { orderBy: { position: "asc" } } },
+    include: {
+      tasks: {
+        orderBy: { position: "asc" },
+        include: { subTasks: { orderBy: { createdAt: "asc" } } },
+      },
+    },
   })
 }
 

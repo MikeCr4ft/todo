@@ -54,6 +54,11 @@ export default function TaskCard({ task, isDragOverlay = false }: { task: Task; 
               {task.description}
             </p>
           )}
+          {task.subTasks.length > 0 && (
+            <p className="mt-1.5 text-xs text-muted">
+              {task.subTasks.filter((s) => s.completed).length} / {task.subTasks.length}
+            </p>
+          )}
         </div>
       </div>
     </div>

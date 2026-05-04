@@ -1,3 +1,10 @@
+export type SubTask = {
+  id: string
+  title: string
+  completed: boolean
+  taskId: string
+}
+
 export type Task = {
   id: string
   title: string
@@ -5,6 +12,7 @@ export type Task = {
   position: number
   boardId: string
   columnId: string
+  subTasks: SubTask[]
 }
 
 export type Column = {

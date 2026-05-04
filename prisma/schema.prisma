@@ -74,13 +74,23 @@ model Column {
 }
 
 model Task {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
   position    Float
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
   boardId     String
-  board       Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  board       Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
   columnId    String
-  column      Column   @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  column      Column    @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  subTasks    SubTask[]
+}
+
+model SubTask {
+  id        String   @id @default(cuid())
+  title     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }

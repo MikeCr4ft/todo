@@ -29,6 +29,7 @@ export default function ThemeToggle() {
       ? stored === "dark"
       : !window.matchMedia("(prefers-color-scheme: light)").matches
     setDark(isDark)
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light")
     setMounted(true)
   }, [])
 
