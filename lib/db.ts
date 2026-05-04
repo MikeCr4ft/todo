@@ -1,4 +1,4 @@
-import { PrismaClient } from "@/src/generated/prisma/client"
+import { PrismaClient } from "@/lib/generated/prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg"
 
 // Attach the client to globalThis so Next.js hot-reloads don't create a new
