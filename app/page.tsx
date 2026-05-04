@@ -11,28 +11,30 @@ export default async function HomePage() {
   const boards = await getBoardsByUser(userId)
 
   return (
-    <main className="px-8 py-12">
-      <h1 className="mb-6 text-2xl font-bold text-primary">My Boards</h1>
+    <main className="min-h-screen px-6 py-12">
+      <div className="mx-auto max-w-2xl">
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-primary">My Boards</h1>
+            <p className="mt-1 text-sm text-muted">Organize your work across boards</p>
+          </div>
+          <NewBoardModal />
+        </div>
 
-      <div className="mb-8">
-        <NewBoardModal />
+        {boards.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-edge py-16 text-center">
+            <p className="text-sm text-muted">No boards yet — create one to get started.</p>
+          </div>
+        ) : (
+          <ul className="flex flex-col gap-3">
+            {boards.map((board: { id: string; title: string }) => (
+              <li key={board.id}>
+                <BoardCard board={board} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      
-
-      {/* Board list or empty state */}
-      {boards.length === 0 ? (
-        <p className="text-center text-sm text-muted">
-          No boards yet — create one above.
-        </p>
-      ) : (
-        <ul className="flex flex-col gap-3">
-          {boards.map((board: { id: string; title: string }) => (
-            <li key={board.id}>
-              <BoardCard board={board} />
-            </li>
-          ))}
-        </ul>
-      )}
     </main>
   )
 }
