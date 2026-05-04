@@ -12,7 +12,12 @@
       "Bash(git push *)",
       "Bash(gh pr create --base dev --title 'style: scrollable kanban columns and UI polish' --body ' *)",
       "Bash(git add *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(npm run *)",
+      "Bash(npm uninstall *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\miked\\OneDrive\\Desktop\\projects\\todo\\app\\api\\auth"
     ]
   }
 }
