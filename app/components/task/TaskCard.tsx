@@ -1,26 +1,29 @@
 "use client"
 
-import { useDraggable } from "@dnd-kit/core"
+import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import EditTaskModal from "@/app/components/task/EditTaskModal"
 import { Button } from "@/app/components/ui/Button"
 import { deleteTaskAction } from "@/lib/actions/task"
 import type { Task } from "@/lib/types"
 
-export default function TaskCard({ task }: { task: Task }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({ id: task.id })
+export default function TaskCard({ task, isDragOverlay = false }: { task: Task; isDragOverlay?: boolean }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: task.id })
 
-  const style = transform
-    ? { transform: CSS.Translate.toString(transform) }
-    : undefined
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`rounded border border-edge bg-surface p-3 shadow-sm ${
-        isDragging ? "opacity-50" : ""
+      className={`rounded border bg-surface p-3 shadow-sm transition-colors ${
+        isDragging && !isDragOverlay ? "border-edge opacity-40" : ""
+      } ${isDragOverlay ? "rotate-1 border-accent shadow-lg" : ""} ${
+        !isDragging && !isDragOverlay ? "border-edge hover:border-accent/50" : ""
       }`}
     >
       <div className="flex items-start gap-2">

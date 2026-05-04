@@ -21,14 +21,17 @@ export default async function BoardPage({ params }: Props) {
   if (!board) notFound()
 
   return (
-    <main className="px-8 py-12">
-      <Link
-        href="/"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-primary"
-      >
-        ← All boards
-      </Link>
-      <h1 className="mb-8 text-2xl font-bold text-primary">{board.title}</h1>
+    <main className="flex min-h-screen flex-col px-6 py-8">
+      <div className="mb-6 flex items-center gap-3">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-muted transition-colors hover:bg-elevated hover:text-primary"
+        >
+          ← All boards
+        </Link>
+        <span className="text-edge select-none">|</span>
+        <h1 className="text-xl font-bold text-primary">{board.title}</h1>
+      </div>
 
       <KanbanBoard boardId={id} />
     </main>
