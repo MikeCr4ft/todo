@@ -1,6 +1,6 @@
 ---
 name: to-prd
-description: Turn the current conversation context into a PRD and write it as a markdown file in the project. Use when user wants to create a PRD from the current context.
+description: Turn the current conversation context into a PRD, write it as a markdown file in the project, and publish it to GitHub as a prd-labelled issue. Use when user wants to create a PRD from the current context.
 ---
 
 This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
@@ -16,6 +16,13 @@ A deep module (as opposed to a shallow module) is one which encapsulates a lot o
 Check with the user that these modules match their expectations. Check with the user which modules they want tests written for.
 
 3. Write the PRD using the template below, then save it as `docs/prd-<kebab-case-feature-name>.md` (create the `docs/` directory if it doesn't exist). Tell the user the file path when done.
+
+4. Publish the PRD as a GitHub issue using `mcp__github__issue_write` (method: `create`).
+   - Resolve the GitHub repo from `git remote get-url origin` — extract `owner` and `repo`.
+   - Title: `PRD: <Feature Name>` (title-case, human-readable).
+   - Body: the full PRD markdown content.
+   - Label: `prd`.
+   - After creating the issue, tell the user the GitHub issue number (e.g. `#12`). This number is what `to-issues` will use to cross-reference the PRD from each generated issue.
 
 <prd-template>
 
